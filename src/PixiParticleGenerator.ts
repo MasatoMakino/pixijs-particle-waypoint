@@ -1,11 +1,11 @@
 import { PixiParticle } from "./PixiParticle";
 import {
-  ParticleGenerator,
   Particle,
-  ParticleWay,
-  ParticleGeneratorOption
+  ParticleGenerator,
+  ParticleGeneratorOption,
+  ParticleWay
 } from "particle-waypoint";
-import Container = PIXI.Container;
+import { Container, BLEND_MODES } from "pixi.js";
 
 export class PixiParticleGenerator extends ParticleGenerator {
   protected parent: Container;
@@ -14,14 +14,16 @@ export class PixiParticleGenerator extends ParticleGenerator {
 
   private _rangeR: number = 0.0;
   private _rangeRotationSpeed: number = 0.0;
+  private _blendMode: BLEND_MODES;
 
   constructor(
     parent: Container,
     path: ParticleWay | ParticleWay[],
     map: string | string[],
-    option?: CanvasParticleGeneratorOption
+    option?: PixiParticleGeneratorOption
   ) {
     super(path, option);
+
     this.parent = parent;
 
     if (option) {
@@ -29,6 +31,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
       if (option.rangeRotationSpeed)
         this._rangeRotationSpeed = option.rangeRotationSpeed;
     }
+    this._blendMode = option?.blendMode ?? BLEND_MODES.NORMAL;
 
     if (Array.isArray(map)) {
       if (map.length === 0) {
@@ -50,7 +53,8 @@ export class PixiParticleGenerator extends ParticleGenerator {
       this.parent,
       this.map[this.mapCounter],
       this._rangeR,
-      this._rangeRotationSpeed
+      this._rangeRotationSpeed,
+      this._blendMode
     );
     this.mapCounter = (this.mapCounter += 1) % this.map.length;
     return particle;
@@ -77,7 +81,8 @@ export class PixiParticleGenerator extends ParticleGenerator {
   }
 }
 
-export interface CanvasParticleGeneratorOption extends ParticleGeneratorOption {
+export interface PixiParticleGeneratorOption extends ParticleGeneratorOption {
   rangeR?: number;
   rangeRotationSpeed?: number;
+  blendMode?: BLEND_MODES;
 }
