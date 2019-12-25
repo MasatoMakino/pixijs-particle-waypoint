@@ -1,7 +1,9 @@
 import { PixiParticle } from "./PixiParticle";
 import { ParticleGenerator } from "particle-waypoint";
+import { BLEND_MODES } from "pixi.js";
 export class PixiParticleGenerator extends ParticleGenerator {
     constructor(parent, path, map, option) {
+        var _a, _b;
         super(path, option);
         this.mapCounter = 0;
         this._rangeR = 0.0;
@@ -13,6 +15,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
             if (option.rangeRotationSpeed)
                 this._rangeRotationSpeed = option.rangeRotationSpeed;
         }
+        this._blendMode = (_b = (_a = option) === null || _a === void 0 ? void 0 : _a.blendMode, (_b !== null && _b !== void 0 ? _b : BLEND_MODES.NORMAL));
         if (Array.isArray(map)) {
             if (map.length === 0) {
                 console.warn("PixiParticleGenerator : オプションとして渡されたテクスチャ配列が空です。このクラスは動作しますが、一切の表示を行いません。");
@@ -26,7 +29,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
     }
     generateParticle(path) {
         const particle = new PixiParticle(path);
-        particle.init(this.parent, this.map[this.mapCounter], this._rangeR, this._rangeRotationSpeed);
+        particle.init(this.parent, this.map[this.mapCounter], this._rangeR, this._rangeRotationSpeed, this._blendMode);
         this.mapCounter = (this.mapCounter += 1) % this.map.length;
         return particle;
     }

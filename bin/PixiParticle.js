@@ -11,11 +11,12 @@ export class PixiParticle extends Particle {
         this.rotationSin = 0.0;
         this.rotationCos = 0.0;
     }
-    init(parent, bitmapURL, rangeR, rangeRotationSpeed) {
+    init(parent, bitmapURL, rangeR, rangeRotationSpeed, blendMode) {
         this.parent = parent;
         const texture = Texture.from(bitmapURL);
         this.bitmap = new Sprite(texture);
         this.bitmap.anchor.set(0.5, 0.5);
+        this.bitmap.blendMode = blendMode;
         this.parent.addChild(this.bitmap);
         this.r = rangeR * Math.random();
         this.rotationSpeedSin = rangeRotationSpeed * (Math.random() * 2 - 1);

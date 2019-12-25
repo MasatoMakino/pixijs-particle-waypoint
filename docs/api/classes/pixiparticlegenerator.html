@@ -92,6 +92,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="pixiparticlegenerator.html#_blendmode" class="tsd-kind-icon">_blend<wbr>Mode</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="pixiparticlegenerator.html#_particles" class="tsd-kind-icon">_particles</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="pixiparticlegenerator.html#_ranger" class="tsd-kind-icon">_rangeR</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="pixiparticlegenerator.html#_rangerotationspeed" class="tsd-kind-icon">_range<wbr>Rotation<wbr>Speed</a></li>
@@ -141,14 +142,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Pixi<wbr>Particle<wbr>Generator<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Container</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ParticleWay</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ParticleWay</span><span class="tsd-signature-symbol">[]</span>, map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, option<span class="tsd-signature-symbol">?: </span><a href="../interfaces/canvasparticlegeneratoroption.html" class="tsd-signature-type">CanvasParticleGeneratorOption</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pixiparticlegenerator.html" class="tsd-signature-type">PixiParticleGenerator</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Pixi<wbr>Particle<wbr>Generator<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Container</span>, path<span class="tsd-signature-symbol">: </span><a href="pixiparticleway.html" class="tsd-signature-type">PixiParticleWay</a><span class="tsd-signature-symbol"> | </span><a href="pixiparticleway.html" class="tsd-signature-type">PixiParticleWay</a><span class="tsd-signature-symbol">[]</span>, map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, option<span class="tsd-signature-symbol">?: </span><a href="../interfaces/pixiparticlegeneratoroption.html" class="tsd-signature-type">PixiParticleGeneratorOption</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pixiparticlegenerator.html" class="tsd-signature-type">PixiParticleGenerator</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides ParticleGenerator.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L16">src/PixiParticleGenerator.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L17">src/PixiParticleGenerator.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -157,13 +158,13 @@
 									<h5>parent: <span class="tsd-signature-type">Container</span></h5>
 								</li>
 								<li>
-									<h5>path: <span class="tsd-signature-type">ParticleWay</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ParticleWay</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>path: <a href="pixiparticleway.html" class="tsd-signature-type">PixiParticleWay</a><span class="tsd-signature-symbol"> | </span><a href="pixiparticleway.html" class="tsd-signature-type">PixiParticleWay</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 								<li>
 									<h5>map: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> option: <a href="../interfaces/canvasparticlegeneratoroption.html" class="tsd-signature-type">CanvasParticleGeneratorOption</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> option: <a href="../interfaces/pixiparticlegeneratoroption.html" class="tsd-signature-type">PixiParticleGeneratorOption</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="pixiparticlegenerator.html" class="tsd-signature-type">PixiParticleGenerator</a></h4>
@@ -173,6 +174,16 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_blendmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _blend<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">_blend<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BLEND_MODES</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L17">src/PixiParticleGenerator.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="_particles" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _particles</h3>
@@ -190,7 +201,7 @@
 					<div class="tsd-signature tsd-kind-icon">_rangeR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L15">src/PixiParticleGenerator.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L15">src/PixiParticleGenerator.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -200,7 +211,7 @@
 					<div class="tsd-signature tsd-kind-icon">_range<wbr>Rotation<wbr>Speed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L16">src/PixiParticleGenerator.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L16">src/PixiParticleGenerator.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -253,7 +264,7 @@
 					<div class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L12">src/PixiParticleGenerator.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L12">src/PixiParticleGenerator.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -263,7 +274,7 @@
 					<div class="tsd-signature tsd-kind-icon">map<wbr>Counter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L13">src/PixiParticleGenerator.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L13">src/PixiParticleGenerator.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -273,7 +284,7 @@
 					<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Container</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L11">src/PixiParticleGenerator.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L11">src/PixiParticleGenerator.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -357,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L71">src/PixiParticleGenerator.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L75">src/PixiParticleGenerator.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -365,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L75">src/PixiParticleGenerator.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L79">src/PixiParticleGenerator.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -389,7 +400,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L64">src/PixiParticleGenerator.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L68">src/PixiParticleGenerator.ts:68</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -397,7 +408,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L68">src/PixiParticleGenerator.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L72">src/PixiParticleGenerator.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -471,7 +482,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides ParticleGenerator.generateAll</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L59">src/PixiParticleGenerator.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L63">src/PixiParticleGenerator.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -482,20 +493,20 @@
 					<a name="generateparticle" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> generate<wbr>Particle</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">generate<wbr>Particle<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ParticleWay</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Particle</span></li>
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Particle<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><a href="pixiparticleway.html" class="tsd-signature-type">PixiParticleWay</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Particle</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides ParticleGenerator.generateParticle</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/133ab9c/src/PixiParticleGenerator.ts#L47">src/PixiParticleGenerator.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/MasatoMakino/pixijs-particle-waypoint/blob/d58794a/src/PixiParticleGenerator.ts#L50">src/PixiParticleGenerator.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>path: <span class="tsd-signature-type">ParticleWay</span></h5>
+									<h5>path: <a href="pixiparticleway.html" class="tsd-signature-type">PixiParticleWay</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Particle</span></h4>
@@ -774,6 +785,9 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="pixiparticlegenerator.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="pixiparticlegenerator.html#_blendmode" class="tsd-kind-icon">_blend<wbr>Mode</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="pixiparticlegenerator.html#_particles" class="tsd-kind-icon">_particles</a>
 							</li>
@@ -862,8 +876,11 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="pixiparticleway.html" class="tsd-kind-icon">Pixi<wbr>Particle<wbr>Way</a>
+					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/canvasparticlegeneratoroption.html" class="tsd-kind-icon">Canvas<wbr>Particle<wbr>Generator<wbr>Option</a>
+						<a href="../interfaces/pixiparticlegeneratoroption.html" class="tsd-kind-icon">Pixi<wbr>Particle<wbr>Generator<wbr>Option</a>
 					</li>
 				</ul>
 			</nav>
