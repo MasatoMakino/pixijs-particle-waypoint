@@ -2,10 +2,10 @@ import { PixiParticle } from "./PixiParticle";
 import {
   Particle,
   ParticleGenerator,
-  ParticleGeneratorOption,
-  ParticleWay
+  ParticleGeneratorOption
 } from "particle-waypoint";
 import { Container, BLEND_MODES } from "pixi.js";
+import { PixiParticleWay } from "./PixiParticleWay";
 
 export class PixiParticleGenerator extends ParticleGenerator {
   protected parent: Container;
@@ -18,7 +18,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
 
   constructor(
     parent: Container,
-    path: ParticleWay | ParticleWay[],
+    path: PixiParticleWay | PixiParticleWay[],
     map: string | string[],
     option?: PixiParticleGeneratorOption
   ) {
@@ -47,7 +47,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
     }
   }
 
-  protected generateParticle(path: ParticleWay): Particle {
+  protected generateParticle(path: PixiParticleWay): Particle {
     const particle = new PixiParticle(path);
     particle.init(
       this.parent,

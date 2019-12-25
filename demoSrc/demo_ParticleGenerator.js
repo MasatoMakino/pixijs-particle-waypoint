@@ -3,7 +3,7 @@ import { PixiParticleGenerator } from "../bin/index";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath";
 import { initWay } from "./common";
 import * as dat from "dat.gui";
-import { Application } from "pixi.js";
+import { Application, BLEND_MODES } from "pixi.js";
 import TWEEN from "@tweenjs/tween.js";
 
 /**
@@ -14,7 +14,7 @@ const onDomContentsLoaded = () => {
   const app = new Application({ width: 640, height: 480 });
   document.body.appendChild(app.view);
 
-  const way = initWay();
+  const way = initWay(app.stage);
   const generator = initGenerator(way, app.stage);
   initGUI(generator);
 };
@@ -26,9 +26,14 @@ const onDomContentsLoaded = () => {
  * @return {PixiParticleGenerator}
  */
 const initGenerator = (way, stage) => {
-  const bitmap = ["./circle.png"];
+  const bitmap = [];
+  for (let i = 0; i < 12; i++) {
+    bitmap.push(`./circle${(i + 1).toString().padStart(2, "0")}.png`);
+  }
+
   const generator = new PixiParticleGenerator(stage, way, bitmap, {
-    ease: TWEEN.Easing.Cubic.InOut
+    ease: TWEEN.Easing.Cubic.InOut,
+    blendMode: BLEND_MODES.ADD
   });
   generator.setSpeed(166, 8 * 6);
   generator.play();
@@ -45,7 +50,7 @@ const initGUI = generator => {
     path: "heart",
     ease: "cubicInOut",
     valve: true,
-    visiblePassage: true,
+    visiblePassage: false,
     clear: () => {
       generator.removeAllParticles();
     }
@@ -101,9 +106,9 @@ const initGUI = generator => {
   });
   gui.add(prop, "visiblePassage").onChange(() => {
     if (prop.visiblePassage) {
-      generator.path.showPassage();
+      generator.path[0].showPassage();
     } else {
-      generator.path.hidePassage();
+      generator.path[0].hidePassage();
     }
   });
   gui.add(prop, "clear");
