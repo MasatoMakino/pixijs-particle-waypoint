@@ -1,6 +1,6 @@
 import { getHeartPath } from "./SamplePath";
 import { ParticleWay, BezierUtil } from "particle-waypoint";
-import { PixiParticleWay } from "../bin/PixiParticleWay";
+import { PixiParticleWay } from "../esm/";
 
 /**
  * ParticleWayを初期化する。

@@ -11,7 +11,7 @@ export declare class PixiParticleWay extends ParticleWay {
     });
     private initPassage;
     private drawPassage;
-    set points(points: number[][]);
+    protected onSetPoints(): void;
     showPassage(): void;
     hidePassage(): void;
 }

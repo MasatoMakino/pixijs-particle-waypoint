@@ -1,5 +1,5 @@
 import { BezierUtil } from "particle-waypoint";
-import { PixiParticleGenerator } from "../bin/index";
+import { PixiParticleGenerator } from "../esm/";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath";
 import { initWay } from "./common";
 import * as dat from "dat.gui";
