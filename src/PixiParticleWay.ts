@@ -36,14 +36,14 @@ export class PixiParticleWay extends ParticleWay {
 
   private drawPassage(): void {
     if (!this.passage) return;
-    if (!super.points) return;
-    if (super.points.length <= 1) return;
+    if (!this.points) return;
+    if (this.points.length <= 1) return;
 
-    const isBezier = super.points[1].length === 6;
+    const isBezier = this.points[1].length === 6;
 
     const g = this.passage;
     g.clear().lineStyle(1, this.passageColor, this.passageAlpha);
-    super.points.forEach((p, index) => {
+    this.points.forEach((p, index) => {
       if (index === 0) {
         g.moveTo(p[0], p[1]);
         return;
@@ -58,8 +58,8 @@ export class PixiParticleWay extends ParticleWay {
     g.endFill();
   }
 
-  set points(points: number[][]) {
-    super.points = points;
+  protected onSetPoints(): void {
+    super.onSetPoints();
     this.drawPassage();
   }
 
