@@ -1,16 +1,17 @@
-import { ParticleWay } from "particle-waypoint";
-import { Graphics } from "pixi.js";
+import {ParticleWay} from "particle-waypoint";
+import {Graphics} from "pixi.js";
+
 export class PixiParticleWay extends ParticleWay {
     constructor(points, option) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b;
         super(points);
         this.passageColor = 0xff0000;
         this.passageAlpha = 0.25;
         if (!option)
             return;
-        this.passageColor = (_b = (_a = option) === null || _a === void 0 ? void 0 : _a.passageColor, (_b !== null && _b !== void 0 ? _b : this.passageColor));
-        this.passageAlpha = (_d = (_c = option) === null || _c === void 0 ? void 0 : _c.passageAlpha, (_d !== null && _d !== void 0 ? _d : this.passageAlpha));
-        if ((_e = option) === null || _e === void 0 ? void 0 : _e.parent) {
+        this.passageColor = (_a = option === null || option === void 0 ? void 0 : option.passageColor) !== null && _a !== void 0 ? _a : this.passageColor;
+        this.passageAlpha = (_b = option === null || option === void 0 ? void 0 : option.passageAlpha) !== null && _b !== void 0 ? _b : this.passageAlpha;
+        if (option === null || option === void 0 ? void 0 : option.parent) {
             this.initPassage(option.parent);
         }
     }
