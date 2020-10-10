@@ -1,4 +1,4 @@
-import { BezierUtil } from "particle-waypoint";
+import { BezierUtil, GenerationMode } from "particle-waypoint";
 import { PixiParticleGenerator } from "../esm/";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath";
 import { initWay } from "./common";
@@ -33,9 +33,9 @@ const initGenerator = (way, stage) => {
 
   const generator = new PixiParticleGenerator(stage, way, bitmap, {
     ease: TWEEN.Easing.Cubic.InOut,
-    blendMode: BLEND_MODES.ADD
+    blendMode: BLEND_MODES.ADD,
   });
-  generator.setSpeed(166, 8 * 6);
+  generator.animator.setSpeed(166, 8 * 6);
   generator.play();
   return generator;
 };
@@ -44,20 +44,22 @@ const initGenerator = (way, stage) => {
  * デモのパラメーターを操作するGUIを初期化する。
  * @param generator
  */
-const initGUI = generator => {
+const initGUI = (generator) => {
   const prop = {
     isPlay: true,
     path: "heart",
     ease: "cubicInOut",
     valve: true,
+    mode: "SEQUENTIAL",
     visiblePassage: false,
     clear: () => {
-      generator.removeAllParticles();
-    }
+      generator.particleContainer.removeAll();
+    },
   };
   const gui = new dat.GUI();
-  gui.add(generator, "particleInterval", 1, 1000);
-  gui.add(generator, "speedPerSec", 0.0001, 0.5);
+  const animator = generator.animator;
+  gui.add(animator, "generationInterval", 1, 1000);
+  gui.add(animator, "speedPerSec", 0.0001, 0.5);
 
   gui.add(generator, "rangeR", 0.0, 32.0, 0.1);
   gui.add(generator, "rangeRotationSpeed", 0.0, 3.14 * 4, 0.01);
@@ -72,7 +74,7 @@ const initGUI = generator => {
         ease = TWEEN.Easing.Cubic.InOut;
         break;
     }
-    generator.updateEase(ease, generator.isLoop);
+    animator.updateEase(ease, generator.isLoop);
   });
   gui.add(prop, "path", ["heart", "circle", "triangle"]).onChange(() => {
     let path;
@@ -96,19 +98,31 @@ const initGUI = generator => {
       generator.stop();
     }
   });
-  gui.add(generator, "isLoop");
+  const modeManager = generator.modeManager;
+  gui.add(prop, "mode", ["SEQUENTIAL", "LOOP"]).onChange(() => {
+    switch (prop.mode) {
+      case "SEQUENTIAL":
+        modeManager.mode = GenerationMode.SEQUENTIAL;
+        break;
+      case "LOOP":
+        modeManager.mode = GenerationMode.LOOP;
+        break;
+    }
+  });
   gui.add(prop, "valve").onChange(() => {
+    const valve = generator.valve;
     if (prop.valve) {
-      generator.openValve();
+      valve.open();
     } else {
-      generator.closeValve();
+      valve.close();
     }
   });
   gui.add(prop, "visiblePassage").onChange(() => {
+    const ways = generator.multipleWays.ways;
     if (prop.visiblePassage) {
-      generator.path[0].showPassage();
+      ways[0].showPassage();
     } else {
-      generator.path[0].hidePassage();
+      ways[0].hidePassage();
     }
   });
   gui.add(prop, "clear");
