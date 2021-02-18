@@ -1,6 +1,5 @@
-import {ParticleWay} from "particle-waypoint";
-import {Graphics} from "pixi.js";
-
+import { ParticleWay } from "particle-waypoint";
+import { Graphics } from "pixi.js";
 export class PixiParticleWay extends ParticleWay {
     constructor(points, option) {
         var _a, _b;

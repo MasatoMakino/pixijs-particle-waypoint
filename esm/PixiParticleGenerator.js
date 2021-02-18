@@ -1,7 +1,6 @@
-import {PixiParticle} from "./PixiParticle";
-import {ParticleGenerator} from "particle-waypoint";
-import {BLEND_MODES} from "pixi.js";
-
+import { PixiParticle } from "./PixiParticle";
+import { ParticleGenerator } from "particle-waypoint";
+import { BLEND_MODES } from "pixi.js";
 export class PixiParticleGenerator extends ParticleGenerator {
     constructor(parent, path, map, option) {
         var _a;
