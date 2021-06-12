@@ -1,4 +1,5 @@
 import { Particle } from "particle-waypoint";
+import * as PIXI from "pixi.js";
 import { Container, Sprite } from "pixi.js";
 import BLEND_MODES = PIXI.BLEND_MODES;
 export declare class PixiParticle extends Particle {
