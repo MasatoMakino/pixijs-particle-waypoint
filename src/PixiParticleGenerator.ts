@@ -2,8 +2,8 @@ import { PixiParticle } from "./PixiParticle";
 import {
   Particle,
   ParticleGenerator,
-  ParticleGeneratorOption
-} from "particle-waypoint";
+  ParticleGeneratorOption,
+} from "@masatomakino/particle-waypoint";
 import { Container, BLEND_MODES } from "pixi.js";
 import { PixiParticleWay } from "./PixiParticleWay";
 

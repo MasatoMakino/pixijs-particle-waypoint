@@ -1,5 +1,5 @@
-import { BezierUtil, GenerationMode } from "particle-waypoint";
-import { PixiParticleGenerator } from "../esm/";
+import { BezierUtil, GenerationMode } from "@masatomakino/particle-waypoint";
+import { PixiParticleGenerator } from "..";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath";
 import { initWay } from "./common";
 import * as dat from "dat.gui";

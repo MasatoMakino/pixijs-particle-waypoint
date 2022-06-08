@@ -1,6 +1,6 @@
 import { getHeartPath } from "./SamplePath";
-import { ParticleWay, BezierUtil } from "particle-waypoint";
-import { PixiParticleWay } from "../esm/";
+import { ParticleWay, BezierUtil } from "@masatomakino/particle-waypoint";
+import { PixiParticleWay } from "..";
 
 /**
  * ParticleWayを初期化する。
@@ -9,7 +9,7 @@ import { PixiParticleWay } from "../esm/";
 export function initWay(stage) {
   const points = getHeartPath();
   const wayPoint = new PixiParticleWay(BezierUtil.subdivide(points), {
-    parent: stage
+    parent: stage,
   });
   return wayPoint;
 }
