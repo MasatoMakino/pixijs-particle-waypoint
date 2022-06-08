@@ -41,11 +41,6 @@
     "build:clean": "gulp build_clean",
     "checkout:docs": "git checkout HEAD ./docs/"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "bugs": {
     "url": "https://github.com/MasatoMakino/pixijs-particle-waypoint/issues"
   },
