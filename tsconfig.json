@@ -8,7 +8,6 @@
     "outDir": "./lib" /* Redirect output structure to the directory. */,
     "rootDir": "./src",
     "allowSyntheticDefaultImports": true, // it needs to [import TWEEN from "@tweenjs/tween.js"]
-    "incremental": true,
 
     /* Module Resolution Options */
     "moduleResolution": "node",

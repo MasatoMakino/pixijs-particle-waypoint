@@ -1,4 +1,4 @@
-import { ParticleWay } from "particle-waypoint";
+import { ParticleWay } from "@masatomakino/particle-waypoint";
 import { Graphics, Container } from "pixi.js";
 
 export class PixiParticleWay extends ParticleWay {

@@ -1,5 +1,5 @@
-import { PixiParticleGenerator } from "../esm/";
-import { ParticleWay } from "particle-waypoint";
+import { PixiParticleGenerator } from "..";
+import { ParticleWay } from "@masatomakino/particle-waypoint";
 import { Application } from "pixi.js";
 
 /**
@@ -11,14 +11,14 @@ const onDomContentsLoaded = () => {
     [100, 100],
     [100, 200],
     [200, 200],
-    [200, 300]
+    [200, 300],
   ];
   const wayPoint = new ParticleWay(points);
 
   const app = new Application({ width: 640, height: 480 });
   document.body.appendChild(app.view);
   const generator = new PixiParticleGenerator(app.stage, wayPoint, [
-    "./circle.png"
+    "./circle.png",
   ]);
   generator.play();
 };
