@@ -2,7 +2,7 @@ import { BezierUtil, GenerationMode } from "@masatomakino/particle-waypoint";
 import { PixiParticleGenerator } from "..";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath";
 import { initWay } from "./common";
-import * as dat from "dat.gui";
+import GUI from "lil-gui";
 import { Application, BLEND_MODES } from "pixi.js";
 import TWEEN from "@tweenjs/tween.js";
 
@@ -56,7 +56,7 @@ const initGUI = (generator) => {
       generator.particleContainer.removeAll();
     },
   };
-  const gui = new dat.GUI();
+  const gui = new GUI();
   const animator = generator.animator;
   gui.add(animator, "generationInterval", 1, 1000);
   gui.add(animator, "speedPerSec", 0.0001, 0.5);
