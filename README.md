@@ -8,6 +8,8 @@
 
 ## Demo
 
+https://user-images.githubusercontent.com/2356805/222048951-de4aff56-03cc-48e3-8e0a-3d1e50c3d90d.mov
+
 [Demo Page](https://masatomakino.github.io/pixijs-particle-waypoint/demo/)
 
 ## API
