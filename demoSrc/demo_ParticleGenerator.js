@@ -1,4 +1,4 @@
-import { BezierUtil, GenerationMode } from "@masatomakino/particle-waypoint";
+import { BezierUtil } from "@masatomakino/particle-waypoint";
 import { PixiParticleGenerator } from "..";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath";
 import { initWay } from "./common";
@@ -50,7 +50,7 @@ const initGUI = (generator) => {
     path: "heart",
     ease: "cubicInOut",
     valve: true,
-    mode: "SEQUENTIAL",
+    mode: "sequential",
     visiblePassage: false,
     clear: () => {
       generator.particleContainer.removeAll();
@@ -99,16 +99,7 @@ const initGUI = (generator) => {
     }
   });
   const modeManager = generator.modeManager;
-  gui.add(prop, "mode", ["SEQUENTIAL", "LOOP"]).onChange(() => {
-    switch (prop.mode) {
-      case "SEQUENTIAL":
-        modeManager.mode = GenerationMode.SEQUENTIAL;
-        break;
-      case "LOOP":
-        modeManager.mode = GenerationMode.LOOP;
-        break;
-    }
-  });
+  gui.add(modeManager, "mode", ["sequential", "loop"]);
   gui.add(prop, "valve").onChange(() => {
     const valve = generator.valve;
     if (prop.valve) {
