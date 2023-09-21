@@ -11,8 +11,8 @@ export class PixiParticleGenerator extends ParticleGenerator {
   protected map: string[]; //パーティクルに使用するテクスチャ配列。
   private mapCounter: number = 0;
 
-  private _rangeR: number = 0.0;
-  private _rangeRotationSpeed: number = 0.0;
+  private _rangeR: number;
+  private _rangeRotationSpeed: number;
   private _blendMode: BLEND_MODES;
 
   constructor(
@@ -25,11 +25,8 @@ export class PixiParticleGenerator extends ParticleGenerator {
 
     this.parent = parent;
 
-    if (option) {
-      if (option.rangeR) this._rangeR = option.rangeR;
-      if (option.rangeRotationSpeed)
-        this._rangeRotationSpeed = option.rangeRotationSpeed;
-    }
+    this._rangeR = option?.rangeR ?? 0;
+    this._rangeRotationSpeed = option?.rangeRotationSpeed ?? 0;
     this._blendMode = option?.blendMode ?? BLEND_MODES.NORMAL;
 
     if (Array.isArray(map)) {
