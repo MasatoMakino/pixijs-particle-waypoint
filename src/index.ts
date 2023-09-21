@@ -1,3 +1,3 @@
-export * from "./PixiParticle";
-export * from "./PixiParticleGenerator";
-export * from "./PixiParticleWay";
+export * from "./PixiParticle.js";
+export * from "./PixiParticleGenerator.js";
+export * from "./PixiParticleWay.js";

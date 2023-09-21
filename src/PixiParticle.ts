@@ -1,7 +1,5 @@
 import { Particle } from "@masatomakino/particle-waypoint";
-import * as PIXI from "pixi.js";
-import { Container, Sprite, Texture } from "pixi.js";
-import BLEND_MODES = PIXI.BLEND_MODES;
+import { Container, Sprite, Texture, BLEND_MODES } from "pixi.js";
 
 export class PixiParticle extends Particle {
   protected parent: Container;

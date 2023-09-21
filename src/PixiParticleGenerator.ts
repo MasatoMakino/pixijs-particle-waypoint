@@ -1,11 +1,10 @@
-import { PixiParticle } from "./PixiParticle";
 import {
   Particle,
   ParticleGenerator,
   ParticleGeneratorOption,
 } from "@masatomakino/particle-waypoint";
 import { Container, BLEND_MODES } from "pixi.js";
-import { PixiParticleWay } from "./PixiParticleWay";
+import { PixiParticle, PixiParticleWay } from "./index.js";
 
 export class PixiParticleGenerator extends ParticleGenerator {
   protected parent: Container;

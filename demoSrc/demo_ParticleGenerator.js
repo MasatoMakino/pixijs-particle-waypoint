@@ -1,7 +1,7 @@
 import { BezierUtil } from "@masatomakino/particle-waypoint";
-import { PixiParticleGenerator } from "..";
-import { getCircle, getHeartPath, getTriangle } from "./SamplePath";
-import { initWay } from "./common";
+import { PixiParticleGenerator } from "../esm/index.js";
+import { getCircle, getHeartPath, getTriangle } from "./SamplePath.js";
+import { initWay } from "./common.js";
 import GUI from "lil-gui";
 import { Application, BLEND_MODES } from "pixi.js";
 import TWEEN from "@tweenjs/tween.js";
