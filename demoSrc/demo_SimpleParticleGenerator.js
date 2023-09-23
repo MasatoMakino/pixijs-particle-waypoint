@@ -1,4 +1,4 @@
-import { PixiParticleGenerator } from "..";
+import { PixiParticleGenerator } from "../esm/index.js";
 import { ParticleWay } from "@masatomakino/particle-waypoint";
 import { Application } from "pixi.js";
 

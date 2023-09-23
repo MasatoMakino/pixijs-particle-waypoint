@@ -1,6 +1,6 @@
-import { getHeartPath } from "./SamplePath";
+import { getHeartPath } from "./SamplePath.js";
 import { ParticleWay, BezierUtil } from "@masatomakino/particle-waypoint";
-import { PixiParticleWay } from "..";
+import { PixiParticleWay } from "../esm/index.js";
 
 /**
  * ParticleWayを初期化する。
