@@ -36,7 +36,7 @@
     "jsdom": "^22.1.0",
     "lil-gui": "^0.18.2",
     "lint-staged": "^14.0.1",
-    "pixi.js": "^7.2.4",
+    "pixi.js": "7.2.4",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2",
     "vitest": "^0.34.4"
@@ -59,7 +59,7 @@
     "preversion": "git checkout main && git pull && npm ci && npm run build && npx run vitest --run",
     "postversion": "git add package.json package-lock.json && git checkout -b version/$(git describe --tags --abbrev=0)",
     "build": "npm run buildTS && npm run demo",
-    "demo": "npx @masatomakino/gulptask-demo-page",
+    "demo": "npx @masatomakino/gulptask-demo-page --compileModule es2020",
     "buildTS": "tsc",
     "typedocs": "npx typedoc --out ./docs/api src/index.ts",
     "server": "browser-sync ./docs/demo -w",
