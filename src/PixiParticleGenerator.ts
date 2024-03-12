@@ -19,7 +19,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
     parent: Container,
     path: PixiParticleWay | PixiParticleWay[],
     map: string | string[],
-    option?: PixiParticleGeneratorOption
+    option?: PixiParticleGeneratorOption,
   ) {
     super(path, option);
 
@@ -27,12 +27,12 @@ export class PixiParticleGenerator extends ParticleGenerator {
 
     this._rangeR = option?.rangeR ?? 0;
     this._rangeRotationSpeed = option?.rangeRotationSpeed ?? 0;
-    this._blendMode = option?.blendMode ?? BLEND_MODES.NORMAL;
+    this._blendMode = option?.blendMode ?? "normal";
 
     if (Array.isArray(map)) {
       if (map.length === 0) {
         console.warn(
-          "PixiParticleGenerator : オプションとして渡されたテクスチャ配列が空です。このクラスは動作しますが、一切の表示を行いません。"
+          "PixiParticleGenerator : オプションとして渡されたテクスチャ配列が空です。このクラスは動作しますが、一切の表示を行いません。",
         );
         console.trace();
       }
@@ -50,7 +50,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
       this.map[this.mapCounter],
       this._rangeR,
       this._rangeRotationSpeed,
-      this._blendMode
+      this._blendMode,
     );
     this.mapCounter = (this.mapCounter += 1) % this.map.length;
     return particle;

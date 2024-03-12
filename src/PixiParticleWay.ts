@@ -12,7 +12,7 @@ export class PixiParticleWay extends ParticleWay {
       parent?: Container;
       passageColor?: number;
       passageAlpha?: number;
-    }
+    },
   ) {
     super(points);
 
@@ -42,7 +42,7 @@ export class PixiParticleWay extends ParticleWay {
     const isBezier = this.points[1].length === 6;
 
     const g = this.passage;
-    g.clear().lineStyle(1, this.passageColor, this.passageAlpha);
+    g.clear();
     this.points.forEach((p, index) => {
       if (index === 0) {
         g.moveTo(p[0], p[1]);
@@ -55,7 +55,7 @@ export class PixiParticleWay extends ParticleWay {
       }
       g.bezierCurveTo(p[0], p[1], p[2], p[3], p[4], p[5]);
     });
-    g.endFill();
+    g.stroke({ width: 1, color: this.passageColor, alpha: this.passageAlpha });
   }
 
   protected onSetPoints(): void {
