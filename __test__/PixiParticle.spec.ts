@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { PixiParticle } from "../src/index.js";
 import { ParticleWay } from "@masatomakino/particle-waypoint";
-import { BLEND_MODES, Container } from "pixi.js";
+import { Container } from "pixi.js";
 
 describe("PixiParticle", () => {
   const originalRandom = Math.random;
@@ -29,7 +29,7 @@ describe("PixiParticle", () => {
     const { particle } = getParticle();
     const parent = new Container();
     const bitmapURL = "./assets/particle.png";
-    particle.init(parent, bitmapURL, 0, 0, BLEND_MODES.NORMAL);
+    particle.init(parent, bitmapURL, 0, 0, "normal");
     expect(parent.children.length).toBe(1);
   });
 
@@ -37,7 +37,7 @@ describe("PixiParticle", () => {
     const { particle } = getParticle();
     const parent = new Container();
     const bitmapURL = "./assets/particle.png";
-    particle.init(parent, bitmapURL, 0, 0, BLEND_MODES.NORMAL);
+    particle.init(parent, bitmapURL, 0, 0, "normal");
     particle.update(0.5);
     expect(particle.bitmap.x).toBe(0.5);
     expect(particle.bitmap.y).toBe(0.5);
@@ -47,7 +47,7 @@ describe("PixiParticle", () => {
     const { particle } = getParticle();
     const parent = new Container();
     const bitmapURL = "./assets/particle.png";
-    particle.init(parent, bitmapURL, 0, 0, BLEND_MODES.NORMAL);
+    particle.init(parent, bitmapURL, 0, 0, "normal");
     particle.dispose();
     particle.update(0.5); //undefined particle._bitmap
   });
@@ -57,7 +57,7 @@ describe("PixiParticle", () => {
     const { particle } = getParticle();
     const parent = new Container();
     const bitmapURL = "./assets/particle.png";
-    particle.init(parent, bitmapURL, 1, 0, BLEND_MODES.NORMAL);
+    particle.init(parent, bitmapURL, 1, 0, "normal");
     particle.update(0.5);
     expect(particle.bitmap.x).toBeCloseTo(1.5);
     expect(particle.bitmap.y).toBeCloseTo(0.5);

@@ -3,7 +3,7 @@ import {
   ParticleGenerator,
   ParticleGeneratorOption,
 } from "@masatomakino/particle-waypoint";
-import { Container, BLEND_MODES } from "pixi.js";
+import { Container, BLEND_MODES, Assets } from "pixi.js";
 import { PixiParticle, PixiParticleWay } from "./index.js";
 
 export class PixiParticleGenerator extends ParticleGenerator {
@@ -41,6 +41,10 @@ export class PixiParticleGenerator extends ParticleGenerator {
     } else {
       this.map = [map];
     }
+  }
+
+  async initAssets() {
+    await Assets.load(this.map);
   }
 
   protected generateParticle(path: PixiParticleWay): Particle {

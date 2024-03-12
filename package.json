@@ -48,7 +48,7 @@
     "test": "vitest --silent",
     "coverage": "vitest --run --coverage --silent",
     "prepare": "husky",
-    "start:dev": "npm run server & npm run watch:tsc & npm run watch:demo & npx vitest --coverage --ui --silent",
+    "start:dev": "npm run server & npm run watch:tsc & npm run watch:demo",
     "preversion": "git checkout main && git pull && npm ci && npm run build && npx vitest --run",
     "postversion": "git add package.json package-lock.json && git checkout -b version/$(git describe --tags --abbrev=0)",
     "build": "npm run buildTS && npm run demo",
