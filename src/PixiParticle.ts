@@ -1,5 +1,5 @@
 import { Particle } from "@masatomakino/particle-waypoint";
-import { Container, Sprite, Texture, BLEND_MODES } from "pixi.js";
+import { Container, Sprite, BLEND_MODES, Assets } from "pixi.js";
 
 export class PixiParticle extends Particle {
   get bitmap(): Sprite {
@@ -21,12 +21,10 @@ export class PixiParticle extends Particle {
     bitmapURL: string,
     rangeR: number,
     rangeRotationSpeed: number,
-    blendMode: BLEND_MODES
-  ): void {
+    blendMode: BLEND_MODES,
+  ) {
     this.parent = parent;
-
-    const texture = Texture.from(bitmapURL);
-    this._bitmap = new Sprite(texture);
+    this._bitmap = Sprite.from(bitmapURL);
     this._bitmap.anchor.set(0.5, 0.5);
     this._bitmap.blendMode = blendMode;
 

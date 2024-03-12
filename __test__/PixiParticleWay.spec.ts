@@ -1,4 +1,4 @@
-import { describe, it, vi, afterEach, expect } from "vitest";
+import { describe, it, expect } from "vitest";
 import { PixiParticleWay } from "../src/index.js";
 import { Container } from "pixi.js";
 
@@ -20,7 +20,7 @@ describe("PixiParticleWay", () => {
       ],
       {
         parent,
-      }
+      },
     );
 
     expect(parent.children.length).toBe(1);
@@ -41,7 +41,7 @@ describe("PixiParticleWay", () => {
         [0, 0],
         [1, 1],
       ],
-      { parent }
+      { parent },
     );
 
     const passage = parent.children[0];

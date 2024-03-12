@@ -3,19 +3,22 @@ import { PixiParticleGenerator } from "../esm/index.js";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath.js";
 import { initWay } from "./common.js";
 import GUI from "lil-gui";
-import { Application, BLEND_MODES } from "pixi.js";
+import { Application } from "pixi.js";
 import TWEEN from "@tweenjs/tween.js";
 
 /**
  * DOMContentLoaded後の初期化処理。
  * デモに必要なパーツを一式初期化する。
  */
-const onDomContentsLoaded = () => {
-  const app = new Application({ width: 640, height: 480 });
-  document.body.appendChild(app.view);
+const onDomContentsLoaded = async () => {
+  const app = new Application();
+  await app.init({ width: 640, height: 480 });
+  document.body.appendChild(app.canvas);
 
   const way = initWay(app.stage);
   const generator = initGenerator(way, app.stage);
+  await generator.initAssets();
+  generator.play();
   initGUI(generator);
 };
 
@@ -33,10 +36,9 @@ const initGenerator = (way, stage) => {
 
   const generator = new PixiParticleGenerator(stage, way, bitmap, {
     ease: TWEEN.Easing.Cubic.InOut,
-    blendMode: BLEND_MODES.ADD,
+    blendMode: "add",
   });
   generator.animator.setSpeed(166, 8 * 6);
-  generator.play();
   return generator;
 };
 
