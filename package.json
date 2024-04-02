@@ -42,7 +42,7 @@
   "peerDependencies": {
     "@tweenjs/tween.js": "18.5.0 - 23.x",
     "@masatomakino/particle-waypoint": "0.7.0 - 0.8.x",
-    "pixi.js": "^8.0.0"
+    "pixi.js": "^8.0.4"
   },
   "scripts": {
     "test": "vitest --silent",
