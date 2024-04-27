@@ -14,6 +14,7 @@ export class PixiParticleGenerator extends ParticleGenerator {
   private _rangeR: number;
   private _rangeRotationSpeed: number;
   private _blendMode: BLEND_MODES;
+  private _isInit: boolean = false;
 
   constructor(
     parent: Container,
@@ -36,7 +37,6 @@ export class PixiParticleGenerator extends ParticleGenerator {
         );
         console.trace();
       }
-
       this.map = map;
     } else {
       this.map = [map];
@@ -45,9 +45,11 @@ export class PixiParticleGenerator extends ParticleGenerator {
 
   async initAssets() {
     await Assets.load(this.map);
+    this._isInit = true;
   }
 
   protected generateParticle(path: PixiParticleWay): Particle {
+    this.checkInit();
     const particle = new PixiParticle(path);
     particle.init(
       this.parent,
@@ -63,6 +65,14 @@ export class PixiParticleGenerator extends ParticleGenerator {
   public generateAll(): void {
     this.mapCounter = 0;
     super.generateAll();
+  }
+
+  private checkInit() {
+    if (!this._isInit) {
+      throw new Error(
+        "PixiParticleGenerator : このクラスを使用する前にinitAssets()を呼び出してください。",
+      );
+    }
   }
 
   get rangeRotationSpeed(): number {
