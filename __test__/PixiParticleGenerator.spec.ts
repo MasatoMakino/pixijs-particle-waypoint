@@ -8,7 +8,7 @@ import { Container } from "pixi.js";
 import { TestImage } from "./TestImage.js";
 
 describe("PixiParticleGenerator", () => {
-  const getGenerator = async (
+  const createGenerator = (
     map: string | string[] = TestImage,
     option?: PixiParticleGeneratorOption,
   ) => {
@@ -18,6 +18,18 @@ describe("PixiParticleGenerator", () => {
       [1, 1],
     ]);
     const generator = new PixiParticleGenerator(parent, path, map, option);
+    return {
+      parent,
+      path,
+      generator,
+    };
+  };
+
+  const getGenerator = async (
+    map: string | string[] = TestImage,
+    option?: PixiParticleGeneratorOption,
+  ) => {
+    const { parent, path, generator } = createGenerator(map, option);
     await generator.initAssets();
     return {
       parent,
@@ -25,21 +37,26 @@ describe("PixiParticleGenerator", () => {
       generator,
     };
   };
-  const originalConsoleWarn = console.warn;
+
   afterEach(() => {
-    console.warn = originalConsoleWarn;
+    vi.restoreAllMocks();
   });
+
   it("should be constructable", async () => {
     const { generator } = await getGenerator();
     expect(generator).toBeTruthy();
   });
 
   it("should be constructable with empty map, and warn", async () => {
-    const mockWarn = vi.fn();
-    console.warn = mockWarn;
+    const mockWarn = vi.spyOn(console, "warn");
     const { generator } = await getGenerator([]);
     expect(generator).toBeTruthy();
     expect(mockWarn).toBeCalled();
+  });
+
+  it("should not able to generate particle without init", () => {
+    const { generator } = createGenerator();
+    expect(() => generator.generateAll()).toThrow();
   });
 
   it("should be able to get and set range options", async () => {
