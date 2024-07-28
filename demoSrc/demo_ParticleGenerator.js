@@ -4,7 +4,7 @@ import { getCircle, getHeartPath, getTriangle } from "./SamplePath.js";
 import { initWay } from "./common.js";
 import GUI from "lil-gui";
 import { Application } from "pixi.js";
-import TWEEN from "@tweenjs/tween.js";
+import { Easing } from "@tweenjs/tween.js";
 
 /**
  * DOMContentLoaded後の初期化処理。
@@ -35,7 +35,7 @@ const initGenerator = (way, stage) => {
   }
 
   const generator = new PixiParticleGenerator(stage, way, bitmap, {
-    ease: TWEEN.Easing.Cubic.InOut,
+    ease: Easing.Cubic.InOut,
     blendMode: "add",
   });
   generator.animator.setSpeed(166, 8 * 6);
@@ -70,10 +70,10 @@ const initGUI = (generator) => {
     let ease = null;
     switch (prop.ease) {
       case "cubicOut":
-        ease = TWEEN.Easing.Cubic.Out;
+        ease = Easing.Cubic.Out;
         break;
       case "cubicInOut":
-        ease = TWEEN.Easing.Cubic.InOut;
+        ease = Easing.Cubic.InOut;
         break;
     }
     animator.updateEase(ease, generator.isLoop);
