@@ -3,7 +3,7 @@ import { PixiParticleGenerator } from "../esm/index.js";
 import { getCircle, getHeartPath, getTriangle } from "./SamplePath.js";
 import { initWay } from "./common.js";
 import GUI from "lil-gui";
-import { Application } from "pixi.js";
+import { Application, sayHello, RendererType } from "pixi.js";
 import { Easing } from "@tweenjs/tween.js";
 
 /**
@@ -14,6 +14,7 @@ const onDomContentsLoaded = async () => {
   const app = new Application();
   await app.init({ width: 640, height: 480 });
   document.body.appendChild(app.canvas);
+  sayHello(RendererType[app.renderer.type]);
 
   const way = initWay(app.stage);
   const generator = initGenerator(way, app.stage);
