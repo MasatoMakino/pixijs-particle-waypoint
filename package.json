@@ -28,7 +28,8 @@
   "devDependencies": {
     "@masatomakino/gulptask-demo-page": "^0.8.3",
     "@tweenjs/tween.js": "^25.0.0",
-    "@vitest/coverage-istanbul": "^2.0.4",
+    "@vitest/browser": "*",
+    "@vitest/coverage-istanbul": "^2.1.1",
     "browser-sync": "^3.0.2",
     "husky": "^9.1.3",
     "lil-gui": "^0.19.2",
