@@ -27,6 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "@masatomakino/gulptask-demo-page": "^0.8.3",
+    "@masatomakino/release-helper": "^0.1.5",
     "@tweenjs/tween.js": "^25.0.0",
     "@vitest/browser": "*",
     "@vitest/coverage-istanbul": "^2.1.1",
@@ -44,12 +45,13 @@
     "pixi.js": "^8.0.4"
   },
   "scripts": {
-    "test": "vitest --silent",
+    "test": "vitest --run --silent",
     "coverage": "vitest --run --coverage --silent",
     "prepare": "husky",
     "start:dev": "npm run server & npm run watch:tsc & npm run watch:demo",
-    "preversion": "git checkout main && git pull && npm ci && npm run build && npx vitest --run",
-    "postversion": "git add package.json package-lock.json && git checkout -b version/$(git describe --tags --abbrev=0)",
+    "preversion": "npx @masatomakino/release-helper preversion",
+    "postversion": "npx @masatomakino/release-helper postversion",
+    "release": "npx @masatomakino/release-helper release",
     "build": "npm run buildTS && npm run demo",
     "demo": "npx @masatomakino/gulptask-demo-page --compileModule es2020",
     "buildTS": "tsc",
