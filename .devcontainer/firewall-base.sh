@@ -7,9 +7,13 @@
 #   FIREWALL_VERIFY_URL   - URL for positive connectivity verification
 #   FIREWALL_VERIFY_NAME  - Human-readable name for verification output
 #   FIREWALL_ALLOW_SSH    - "true" to allow outbound SSH (port 22)
+#   FIREWALL_ALLOW_GITHUB - "true" to fetch and allow GitHub IP ranges (default: true)
 
 set -euo pipefail
 IFS=$'\n\t'
+
+# Default optional variables
+: "${FIREWALL_ALLOW_GITHUB:=true}"
 
 # Validate required variables
 for var in FIREWALL_DOMAINS FIREWALL_VERIFY_URL FIREWALL_VERIFY_NAME FIREWALL_ALLOW_SSH; do
@@ -81,31 +85,35 @@ iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 ipset create allowed-domains hash:net
 
 # Fetch GitHub meta information and aggregate + add their IP ranges
-echo "Fetching GitHub IP ranges..."
-gh_ranges=$(curl -s --connect-timeout 10 --max-time 30 https://api.github.com/meta)
-if [ -z "$gh_ranges" ]; then
-    echo "ERROR: Failed to fetch GitHub IP ranges"
-    exit 1
-fi
-
-if ! echo "$gh_ranges" | jq -e '.web and .api and .git' >/dev/null; then
-    echo "ERROR: GitHub API response missing required fields"
-    exit 1
-fi
-
-echo "Processing GitHub IPs..."
-while read -r cidr; do
-    # Skip IPv6 ranges (IPv4 firewall only)
-    if [[ "$cidr" == *:* ]]; then
-        continue
-    fi
-    if [[ ! "$cidr" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/[0-9]{1,2}$ ]]; then
-        echo "ERROR: Invalid CIDR range from GitHub meta: $cidr"
+if [ "$FIREWALL_ALLOW_GITHUB" = "true" ]; then
+    echo "Fetching GitHub IP ranges..."
+    gh_ranges=$(curl -s --connect-timeout 10 --max-time 30 https://api.github.com/meta)
+    if [ -z "$gh_ranges" ]; then
+        echo "ERROR: Failed to fetch GitHub IP ranges"
         exit 1
     fi
-    echo "Adding GitHub range $cidr"
-    ipset add allowed-domains "$cidr" -exist
-done < <(echo "$gh_ranges" | jq -r '(.web + .api + .git)[]' | aggregate -q)
+
+    if ! echo "$gh_ranges" | jq -e '.web and .api and .git' >/dev/null; then
+        echo "ERROR: GitHub API response missing required fields"
+        exit 1
+    fi
+
+    echo "Processing GitHub IPs..."
+    while read -r cidr; do
+        # Skip IPv6 ranges (IPv4 firewall only)
+        if [[ "$cidr" == *:* ]]; then
+            continue
+        fi
+        if [[ ! "$cidr" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/[0-9]{1,2}$ ]]; then
+            echo "ERROR: Invalid CIDR range from GitHub meta: $cidr"
+            exit 1
+        fi
+        echo "Adding GitHub range $cidr"
+        ipset add allowed-domains "$cidr" -exist
+    done < <(echo "$gh_ranges" | jq -r '(.web + .api + .git)[]' | aggregate -q)
+else
+    echo "Skipping GitHub IP ranges (FIREWALL_ALLOW_GITHUB=false)"
+fi
 
 # Resolve and add allowed domains
 IFS=' ' read -ra domains <<< "$FIREWALL_DOMAINS"
