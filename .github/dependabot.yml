@@ -18,6 +18,12 @@ updates:
       interval: "daily"
     cooldown:
       default-days: 7
+    groups:
+      vitest:
+        patterns:
+          - "vite"
+          - "vitest"
+          - "@vitest/*"
 
   - package-ecosystem: "docker"
     directory: "/.devcontainer"
