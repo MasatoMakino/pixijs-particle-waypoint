@@ -27,6 +27,10 @@ export default defineConfig({
           ...(chromedriverBinary && {
             "wdio:chromedriverOptions": { binary: chromedriverBinary },
           }),
+          // The provider switches to the test iframe with `switchFrame`, which
+          // WebdriverIO 10 removed for WebDriver BiDi sessions.
+          // Removal condition: the provider switches frames in BiDi sessions.
+          "wdio:enforceWebDriverClassic": true,
         },
       }),
       headless: true,
