@@ -23,8 +23,6 @@ jobs:
         run: npm ci
       - name: Build TypeScript
         run: npm run buildTS
-      - name: Generate API Pages
-        run: npm run typedocs
       - name: Generate Demo Pages
         run: npm run demo
       - name: Upload artifact
