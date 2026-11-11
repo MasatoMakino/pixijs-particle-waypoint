@@ -27,11 +27,10 @@
   "license": "MIT",
   "packageManager": "pnpm@12.16.1",
   "devDependencies": {
-    "@masatomakino/gulptask-demo-page": "^0.10.0",
+    "@masatomakino/demo-showcase": "0.1.3",
     "@tweenjs/tween.js": "^25.0.0",
     "@vitest/browser-webdriverio": "5.0.0",
     "@vitest/coverage-istanbul": "5.1.0",
-    "browser-sync": "^3.0.2",
     "lil-gui": "^0.21.0",
     "pixi.js": "^8.22.0",
     "prettier": "^3.9.10",
@@ -48,12 +47,11 @@
     "coverage": "vitest --run --coverage --silent",
     "pre-commit": "prettier --write --ignore-unknown",
     "pre-push": "pnpm run test",
-    "start:dev": "pnpm run server & pnpm run watch:tsc & pnpm run watch:demo",
+    "start:dev": "pnpm run server & pnpm run watch:tsc",
     "build": "pnpm run buildTS && pnpm run demo",
-    "demo": "gulptask-demo-page --compileModule es2020",
+    "demo": "demo-showcase build --distDir ./docs/demo",
     "buildTS": "tsc",
-    "server": "browser-sync ./docs/demo -w --port 3000 --no-open",
-    "watch:demo": "pnpm run demo -W",
+    "server": "demo-showcase dev --host 0.0.0.0 --port 3456",
     "watch:tsc": "tsc -W --incremental"
   },
   "bugs": {

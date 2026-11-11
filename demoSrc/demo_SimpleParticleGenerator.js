@@ -1,6 +1,7 @@
 import { PixiParticleGenerator } from "../esm/index.js";
 import { ParticleWay } from "@masatomakino/particle-waypoint";
 import { Application, sayHello, RendererType } from "pixi.js";
+import circleUrl from "./circle.png";
 
 /**
  * DOMContentLoaded後の初期化処理。
@@ -20,9 +21,7 @@ const onDomContentsLoaded = async () => {
   document.body.appendChild(app.canvas);
   sayHello(RendererType[app.renderer.type]);
 
-  const generator = new PixiParticleGenerator(app.stage, wayPoint, [
-    "./circle.png",
-  ]);
+  const generator = new PixiParticleGenerator(app.stage, wayPoint, [circleUrl]);
   await generator.initAssets();
   generator.play();
 };
