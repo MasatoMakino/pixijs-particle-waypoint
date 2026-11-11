@@ -1,3 +1,4 @@
+import { webdriverio } from "@vitest/browser-webdriverio";
 import { defineConfig } from "vitest/config";
 
 // The DevContainer sets both to the Debian packages. CI leaves them unset and
@@ -9,30 +10,28 @@ export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: "webdriverio",
+      // Vitest 5 passes only the capabilities of the provider to WebdriverIO.
+      provider: webdriverio({
+        capabilities: {
+          "goog:chromeOptions": {
+            args: [
+              // The DevContainer keeps the default seccomp profile, which blocks
+              // the user namespaces that the Chromium sandbox needs.
+              ...(chromeBinary ? ["--no-sandbox"] : []),
+              "--use-gl=angle",
+              "--use-angle=swiftshader",
+              "--disable-background-networking",
+            ],
+            ...(chromeBinary && { binary: chromeBinary }),
+          },
+          ...(chromedriverBinary && {
+            "wdio:chromedriverOptions": { binary: chromedriverBinary },
+          }),
+        },
+      }),
       headless: true,
       screenshotFailures: false,
-      instances: [
-        {
-          browser: "chrome",
-          capabilities: {
-            "goog:chromeOptions": {
-              args: [
-                // The DevContainer keeps the default seccomp profile, which blocks
-                // the user namespaces that the Chromium sandbox needs.
-                ...(chromeBinary ? ["--no-sandbox"] : []),
-                "--use-gl=angle",
-                "--use-angle=swiftshader",
-                "--disable-background-networking",
-              ],
-              ...(chromeBinary && { binary: chromeBinary }),
-            },
-            ...(chromedriverBinary && {
-              "wdio:chromedriverOptions": { binary: chromedriverBinary },
-            }),
-          },
-        },
-      ],
+      instances: [{ browser: "chrome" }],
     },
     coverage: {
       provider: "istanbul",
