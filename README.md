@@ -14,10 +14,6 @@ https://user-images.githubusercontent.com/2356805/222048951-de4aff56-03cc-48e3-8
 
 [Demo Page](https://masatomakino.github.io/pixijs-particle-waypoint/demo/)
 
-## API
-
-[API document](https://masatomakino.github.io/pixijs-particle-waypoint/api/)
-
 ## License
 
 [MIT licensed](LICENSE).
