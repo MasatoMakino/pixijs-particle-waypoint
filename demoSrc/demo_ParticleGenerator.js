@@ -30,10 +30,14 @@ const onDomContentsLoaded = async () => {
  * @return {PixiParticleGenerator}
  */
 const initGenerator = (way, stage) => {
-  const bitmap = [];
-  for (let i = 0; i < 12; i++) {
-    bitmap.push(`./circle${(i + 1).toString().padStart(2, "0")}.png`);
-  }
+  const circleUrls = import.meta.glob("./circle[0-9][0-9].png", {
+    eager: true,
+    query: "?url",
+    import: "default",
+  });
+  const bitmap = Object.keys(circleUrls)
+    .sort()
+    .map((path) => circleUrls[path]);
 
   const generator = new PixiParticleGenerator(stage, way, bitmap, {
     ease: Easing.Cubic.InOut,

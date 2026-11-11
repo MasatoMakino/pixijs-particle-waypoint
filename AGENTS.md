@@ -17,6 +17,6 @@ devcontainer exec --workspace-folder . pnpm run demo
 devcontainer exec --workspace-folder . pnpm run server
 ```
 
-`pnpm run server` serves the demo on container port 3000. `docker port <container> 3000` shows the host port.
+`pnpm run server` starts the demo dev server on container port 3456. `docker port <container> 3456` shows the host port.
 
 The git hooks in `.git/hooks/` run `pnpm run pre-commit` and `pnpm run pre-push` in the DevContainer, and start it when it is stopped.
