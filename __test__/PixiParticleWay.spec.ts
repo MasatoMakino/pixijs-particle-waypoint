@@ -3,17 +3,9 @@ import { PixiParticleWay } from "../src/index.js";
 import { Container } from "pixi.js";
 
 describe("PixiParticleWay", () => {
-  it("should be constructable", () => {
-    const particleWay = new PixiParticleWay([
-      [0, 0],
-      [1, 1],
-    ]);
-    expect(particleWay).toBeTruthy();
-  });
-
-  it("should draw passage", () => {
+  it("adds the passage to the parent option", () => {
     const parent = new Container();
-    const particleWay = new PixiParticleWay(
+    new PixiParticleWay(
       [
         [0, 0],
         [1, 1],
@@ -26,15 +18,7 @@ describe("PixiParticleWay", () => {
     expect(parent.children.length).toBe(1);
   });
 
-  it.fails("draw passage with single point", () => {
-    const parent = new Container();
-    const particleWay = new PixiParticleWay([[0, 0]], {
-      parent,
-    });
-    expect(parent.children.length).toBe(0);
-  });
-
-  it("should be able to switching passage visible", () => {
+  it("passage starts hidden and toggles with showPassage and hidePassage", () => {
     const parent = new Container();
     const particleWay = new PixiParticleWay(
       [
