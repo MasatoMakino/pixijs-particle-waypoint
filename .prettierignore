@@ -9,3 +9,4 @@ node_modules/
 .vscode/
 CLAUDE.md
 AGENTS.md
+pnpm-lock.yaml
