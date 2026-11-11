@@ -121,3 +121,6 @@ AGENTS.override.md
 .aider.chat.history.md
 .aider.input.history
 .aider.llm.history
+
+# Worktrees with their own DevContainers
+.claude/worktrees/

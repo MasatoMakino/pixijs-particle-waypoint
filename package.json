@@ -46,8 +46,6 @@
     "coverage": "vitest --run --coverage --silent",
     "pre-commit": "prettier --write --ignore-unknown",
     "pre-push": "npm run test",
-    "test:ci": "xvfb-run --auto-servernum vitest --run --silent",
-    "coverage:ci": "xvfb-run --auto-servernum vitest --run --coverage --silent",
     "start:dev": "npm run server & npm run watch:tsc & npm run watch:demo",
     "build": "npm run buildTS && npm run demo",
     "demo": "npx @masatomakino/gulptask-demo-page --compileModule es2020",

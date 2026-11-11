@@ -3,3 +3,9 @@ esm/
 coverage/
 docs/
 node_modules/
+.devcontainer/
+.github/
+.claude/
+.vscode/
+CLAUDE.md
+AGENTS.md
