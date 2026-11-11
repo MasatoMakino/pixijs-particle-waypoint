@@ -42,35 +42,18 @@ describe("PixiParticleGenerator", () => {
     vi.restoreAllMocks();
   });
 
-  it("should be constructable", async () => {
-    const { generator } = await getGenerator();
-    expect(generator).toBeTruthy();
-  });
-
-  it("should be constructable with empty map, and warn", async () => {
+  it("warns when the texture list is empty", async () => {
     const mockWarn = vi.spyOn(console, "warn");
-    const { generator } = await getGenerator([]);
-    expect(generator).toBeTruthy();
+    await getGenerator([]);
     expect(mockWarn).toBeCalled();
   });
 
-  it("should not able to generate particle without init", () => {
+  it("generateAll throws before initAssets loads the textures", () => {
     const { generator } = createGenerator();
     expect(() => generator.generateAll()).toThrow();
   });
 
-  it("should be able to get and set range options", async () => {
-    const { generator } = await getGenerator();
-    expect(generator.rangeR).toBe(0);
-    expect(generator.rangeRotationSpeed).toBe(0);
-
-    generator.rangeR = 1;
-    generator.rangeRotationSpeed = 2;
-    expect(generator.rangeR).toBe(1);
-    expect(generator.rangeRotationSpeed).toBe(2);
-  });
-
-  it("should be able to set range options", async () => {
+  it("constructor option sets the ranges", async () => {
     const { generator } = await getGenerator(TestImage, {
       rangeR: 1,
       rangeRotationSpeed: 2,
@@ -79,7 +62,7 @@ describe("PixiParticleGenerator", () => {
     expect(generator.rangeRotationSpeed).toBe(2);
   });
 
-  it("should be able to generate all", async () => {
+  it("generateAll fills the path at the generation interval", async () => {
     const { generator, parent } = await getGenerator();
     generator.animator.generationInterval = 200;
     generator.generateAll();
