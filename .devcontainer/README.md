@@ -6,16 +6,16 @@ Development container configurations for this project.
 
 | Container  | Directory        | Purpose                                                             |
 | ---------- | ---------------- | ------------------------------------------------------------------- |
-| npm Runner | `.devcontainer/` | Isolated npm execution, Chromium browser testing, iptables firewall |
+| pnpm Runner | `.devcontainer/` | Isolated pnpm execution, Chromium browser testing, iptables firewall |
 
 ## Files
 
 | File                | Description                                                   |
 | ------------------- | ------------------------------------------------------------- |
-| `devcontainer.json` | npm Runner container configuration                            |
-| `Dockerfile`        | npm Runner image (Node 26 + Debian Chromium + firewall tools) |
+| `devcontainer.json` | pnpm Runner container configuration                            |
+| `Dockerfile`        | pnpm Runner image (Node 26 + Debian Chromium + firewall tools) |
 | `firewall-base.sh`  | Shared iptables firewall logic                                |
-| `init-firewall.sh`  | npm Runner firewall domain allowlist                          |
+| `init-firewall.sh`  | pnpm Runner firewall domain allowlist                          |
 
 ## Design Decisions
 

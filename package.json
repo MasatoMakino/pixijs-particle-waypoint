@@ -25,6 +25,7 @@
   },
   "author": "MasatoMakino <unagiinu.g@gmail.com>",
   "license": "MIT",
+  "packageManager": "pnpm@12.16.1",
   "devDependencies": {
     "@masatomakino/gulptask-demo-page": "^0.10.0",
     "@tweenjs/tween.js": "^25.0.0",
@@ -35,6 +36,7 @@
     "pixi.js": "^8.2.5",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4",
+    "vitest": "3.2.4",
     "webdriverio": "^9.0.0"
   },
   "peerDependencies": {
@@ -45,13 +47,13 @@
     "test": "vitest --run --silent",
     "coverage": "vitest --run --coverage --silent",
     "pre-commit": "prettier --write --ignore-unknown",
-    "pre-push": "npm run test",
-    "start:dev": "npm run server & npm run watch:tsc & npm run watch:demo",
-    "build": "npm run buildTS && npm run demo",
-    "demo": "npx @masatomakino/gulptask-demo-page --compileModule es2020",
+    "pre-push": "pnpm run test",
+    "start:dev": "pnpm run server & pnpm run watch:tsc & pnpm run watch:demo",
+    "build": "pnpm run buildTS && pnpm run demo",
+    "demo": "gulptask-demo-page --compileModule es2020",
     "buildTS": "tsc",
     "server": "browser-sync ./docs/demo -w --port 3000 --no-open",
-    "watch:demo": "npm run demo -- -W",
+    "watch:demo": "pnpm run demo -W",
     "watch:tsc": "tsc -W --incremental"
   },
   "bugs": {
