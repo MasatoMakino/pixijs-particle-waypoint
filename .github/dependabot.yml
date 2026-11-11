@@ -10,17 +10,14 @@ updates:
     schedule:
       interval: "weekly"
     cooldown:
-      default-days: 5 # Supply chain protection: prevent rapid updates
+      default-days: 7
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 5 # Supply chain protection: general update frequency control
-      semver-major-days: 30 # Major version updates require extended review
-      semver-minor-days: 7 # Minor version updates get moderate delay
-      semver-patch-days: 3 # Patch updates (security fixes) get minimal delay
+      default-days: 7
     ignore:
       - dependency-name: "@vitest/browser"
 
