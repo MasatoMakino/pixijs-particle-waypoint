@@ -2,11 +2,13 @@ import { Particle } from "@masatomakino/particle-waypoint";
 import { Container, Sprite, BLEND_MODES, Assets } from "pixi.js";
 
 export class PixiParticle extends Particle {
+  // The public and protected types keep their declarations for consumers.
+  // init() assigns parent and the sprite, and dispose() clears them.
   get bitmap(): Sprite {
-    return this._bitmap;
+    return this._bitmap!;
   }
-  protected parent: Container;
-  private _bitmap?: Sprite;
+  protected parent!: Container;
+  private _bitmap?: Sprite | null;
 
   protected r: number = 0.0;
   //媒介変数tに応じた回転量
@@ -39,15 +41,15 @@ export class PixiParticle extends Particle {
 
   update(t: number): number {
     const n = super.update(t);
-    const pos = this.path.getPoint(n);
-    this._bitmap.x = pos[0];
-    this._bitmap.y = pos[1];
+    const pos = this.path.getPoint(n)!;
+    this._bitmap!.x = pos[0];
+    this._bitmap!.y = pos[1];
 
     if (this.r > 0.0) {
       const sin = this.rotationSpeedSin * t + this.rotationSin;
       const cos = this.rotationSpeedCos * t + this.rotationCos;
-      this._bitmap.x += Math.cos(cos) * this.r;
-      this._bitmap.y += Math.sin(sin) * this.r;
+      this._bitmap!.x += Math.cos(cos) * this.r;
+      this._bitmap!.y += Math.sin(sin) * this.r;
     }
 
     return n;
@@ -55,10 +57,10 @@ export class PixiParticle extends Particle {
 
   dispose(): void {
     super.dispose();
-    if (this.parent && this._bitmap.parent) {
-      this._bitmap.parent.removeChild(this._bitmap);
+    if (this.parent && this._bitmap!.parent) {
+      this._bitmap!.parent.removeChild(this._bitmap!);
     }
-    this.parent = null;
+    this.parent = null!;
     this._bitmap = null;
   }
 }

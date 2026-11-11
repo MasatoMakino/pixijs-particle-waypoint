@@ -2,7 +2,7 @@ import { ParticleWay } from "@masatomakino/particle-waypoint";
 import { Graphics, Container } from "pixi.js";
 
 export class PixiParticleWay extends ParticleWay {
-  private passage: Graphics;
+  private passage?: Graphics;
   private passageColor: number = 0xff0000;
   private passageAlpha: number = 0.25;
 

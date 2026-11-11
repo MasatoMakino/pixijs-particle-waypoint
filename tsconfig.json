@@ -5,7 +5,9 @@
     "module": "node16",
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
+    "rootDir": "./src",
     "outDir": "./esm" /* Redirect output structure to the directory. */,
+    "strict": true,
     "allowSyntheticDefaultImports": true, // it needs to [import TWEEN from "@tweenjs/tween.js"]
 
     /* Module Resolution Options */
