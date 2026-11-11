@@ -7,16 +7,13 @@
 #   FIREWALL_VERIFY_URL   - URL for positive connectivity verification
 #   FIREWALL_VERIFY_NAME  - Human-readable name for verification output
 #   FIREWALL_ALLOW_SSH    - "true" to allow outbound SSH (port 22)
-#   FIREWALL_ALLOW_GITHUB - "true" to fetch and allow GitHub IP ranges (default: true)
+#   FIREWALL_ALLOW_GITHUB - "true" to allow the GitHub web, API, and git IP ranges
 
 set -euo pipefail
 IFS=$'\n\t'
 
-# Default optional variables
-: "${FIREWALL_ALLOW_GITHUB:=true}"
-
 # Validate required variables
-for var in FIREWALL_DOMAINS FIREWALL_VERIFY_URL FIREWALL_VERIFY_NAME FIREWALL_ALLOW_SSH; do
+for var in FIREWALL_DOMAINS FIREWALL_VERIFY_URL FIREWALL_VERIFY_NAME FIREWALL_ALLOW_SSH FIREWALL_ALLOW_GITHUB; do
     if [ -z "${!var:-}" ]; then
         echo "ERROR: Required variable $var is not set"
         exit 1
@@ -84,8 +81,8 @@ iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 # Create ipset with CIDR support
 ipset create allowed-domains hash:net
 
-# Fetch GitHub meta information and aggregate + add their IP ranges
 if [ "$FIREWALL_ALLOW_GITHUB" = "true" ]; then
+    # Fetch GitHub meta information and aggregate + add their IP ranges
     echo "Fetching GitHub IP ranges..."
     gh_ranges=$(curl -s --connect-timeout 10 --max-time 30 https://api.github.com/meta)
     if [ -z "$gh_ranges" ]; then
@@ -111,8 +108,6 @@ if [ "$FIREWALL_ALLOW_GITHUB" = "true" ]; then
         echo "Adding GitHub range $cidr"
         ipset add allowed-domains "$cidr" -exist
     done < <(echo "$gh_ranges" | jq -r '(.web + .api + .git)[]' | aggregate -q)
-else
-    echo "Skipping GitHub IP ranges (FIREWALL_ALLOW_GITHUB=false)"
 fi
 
 # Resolve and add allowed domains
@@ -142,12 +137,11 @@ if [ -z "$HOST_IP" ]; then
     exit 1
 fi
 
-HOST_NETWORK=$(echo "$HOST_IP" | sed "s/\.[0-9]*$/.0\/24/")
-echo "Host network detected as: $HOST_NETWORK"
+echo "Host gateway detected as: $HOST_IP"
 
-# Set up remaining iptables rules
-iptables -A INPUT -s "$HOST_NETWORK" -j ACCEPT
-iptables -A OUTPUT -d "$HOST_NETWORK" -j ACCEPT
+# Accept inbound TCP from the gateway only. The published ports in devcontainer.json decide which ports the host reaches.
+# Other containers on the bridge stay unreachable.
+iptables -A INPUT -s "$HOST_IP/32" -p tcp -j ACCEPT
 
 # Set default policies to DROP
 iptables -P INPUT DROP

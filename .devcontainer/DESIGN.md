@@ -1,72 +1,43 @@
-# DevContainer Design Notes
+# DevContainer design notes
 
-## seccomp-chrome.json
+The container runs third-party package code. The configuration keeps that code away from code execution on the host and from directories above the project. The project is public, so the configuration does not try to keep the source in the container.
 
-### What it is
+## Read-only mounts
 
-A custom seccomp (secure computing) profile for running Chrome browser tests in Docker without `--cap-add=SYS_ADMIN`.
+The container mounts `.git`, `.devcontainer`, `.github`, `.claude`, `.vscode`, `CLAUDE.md`, and `AGENTS.md` read-only. The host runs or loads these files (git hooks, git config, the container configuration, CI workflows, agent settings and instructions, editor tasks and settings). The workspace stays writable for `npm install` and for the `prettier --write` pre-commit hook.
 
-### Origin
+## npm settings
 
-Based on the moby/profiles default seccomp profile:
-https://github.com/moby/profiles/blob/main/seccomp/default.json
+`containerEnv` sets `NPM_CONFIG_IGNORE_SCRIPTS`. Lifecycle scripts of dependencies and of the root package do not run on install. `npm run` still runs the named script.
 
-moby is the open-source upstream project of Docker Engine. This default profile is automatically applied to every Docker container and defines which Linux syscalls are allowed inside the container.
+`postCreateCommand` starts the firewall before `npm ci`, so the install never runs with the host services reachable.
 
-### Modification
+## node_modules volume
 
-The moby default profile conditionally allows `clone`, `clone3`, `unshare`, and `setns` syscalls only when the process has `CAP_SYS_ADMIN` capability. Chrome's sandbox mechanism requires these syscalls for user namespace isolation.
+`node_modules` lives in a named volume, so package code never lands on the host file system. The host IDE does not resolve the dependencies.
 
-This custom profile makes those 4 syscalls unconditionally allowed, removing the `CAP_SYS_ADMIN` requirement. It also removes the `clone3` ERRNO entry that explicitly blocks the syscall without `CAP_SYS_ADMIN`.
+The Dockerfile creates the mount point owned by `node`. Docker copies that ownership into the empty volume on the first mount.
 
-### Why not SYS_ADMIN
+## Default seccomp profile
 
-`CAP_SYS_ADMIN` is a broad Linux capability that grants privileges far beyond what Chrome needs:
+The container keeps the Docker default seccomp profile, which blocks unprivileged user namespaces. User namespaces open kernel attack surface that can lead to a container escape. Chromium needs user namespaces for its sandbox, so the tests run Chromium with `--no-sandbox`. Chromium only loads the project code and its dependencies, which Node already runs.
 
-| Granted by SYS_ADMIN            | Needed by Chrome |
-| ------------------------------- | ---------------- |
-| mount / umount filesystems      | No               |
-| sethostname / setdomainname     | No               |
-| Load kernel modules             | No               |
-| Swap operations                 | No               |
-| clone with CLONE_NEWUSER        | Yes              |
-| unshare / setns (namespace ops) | Yes              |
+## Firewall
 
-The custom seccomp profile allows only the namespace-related syscalls Chrome actually requires.
+Outbound traffic goes only to DNS and the allowlisted domains. The host services on `127.0.0.1` (reachable through `host.docker.internal`) and the other containers on the Docker bridge stay unreachable. Inbound TCP is accepted only from the gateway. The published ports in `devcontainer.json` decide which container ports the host reaches.
 
-### Maintenance
+## Worktrees
 
-The base profile (moby default) is maintained by the Docker/Moby team and tracks kernel and container runtime changes. Chrome's 4 additional syscalls (`clone`, `clone3`, `unshare`, `setns`) are fundamental Linux namespace APIs with very low change frequency.
+Each worktree gets its own container. Put a worktree in `.claude/worktrees/`, or outside the project, and run `devcontainer up --workspace-folder <worktree>`. A worktree elsewhere in the project is writable from the container of the main tree, and its `.git` file, `.claude`, and `CLAUDE.md` would reach the host. `.claude/worktrees/` is inside the read-only `.claude` mount.
 
-If Chrome adds new syscall requirements in the future (as happened with `pkey_mprotect` in Chromium circa 2023), the profile may need updating. Symptoms would be Chrome crashing on container startup.
+The container name and the `node_modules` volume include `${devcontainerId}`, which the devcontainer CLI derives from the folder path. Worktrees with the same folder name in other projects get their own volumes. The git hooks find the container by its `devcontainer.local_folder` label.
 
-### License
-
-`seccomp-chrome.json` is a derivative work of moby/profiles `default.json`.
-
-- Original: https://github.com/moby/profiles/blob/main/seccomp/default.json
-- License: Apache License 2.0 (https://github.com/moby/profiles/blob/main/LICENSE)
-- Copyright: The Moby Authors
-- Modifications: Added unconditional SCMP_ACT_ALLOW entry for `clone`, `clone3`, `setns`, `unshare`; removed SCMP_ACT_ERRNO entry for `clone3`.
-
-### Regeneration
-
-To regenerate from the latest moby default:
+To remove a worktree, remove its container and volume first:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/moby/profiles/main/seccomp/default.json \
-  | python3 -c "
-import sys, json
-profile = json.load(sys.stdin)
-chrome_syscalls = {'clone', 'clone3', 'unshare', 'setns'}
-profile['syscalls'].insert(0, {
-    'names': sorted(chrome_syscalls),
-    'action': 'SCMP_ACT_ALLOW'
-})
-profile['syscalls'] = [
-    e for e in profile['syscalls']
-    if not (e.get('action') == 'SCMP_ACT_ERRNO' and set(e.get('names', [])) <= chrome_syscalls)
-]
-json.dump(profile, sys.stdout, indent=2)
-" > .devcontainer/seccomp-chrome.json
+C=$(docker ps -aq --filter label=devcontainer.local_folder=<worktree>)
+V=$(docker inspect -f '{{range .Mounts}}{{if eq .Type "volume"}}{{.Name}} {{end}}{{end}}' "$C")
+docker rm -f "$C"
+docker volume rm $V
+git worktree remove <worktree>
 ```
